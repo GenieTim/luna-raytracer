@@ -20,7 +20,6 @@
 
 #include <cmath>
 #include <string>
-#include <boost/lexical_cast.hpp>
 #include "DiskAreaLight.h"
 #include "Object.h"
 #include "Polar3.h"
@@ -135,7 +134,7 @@ Geometry* DiskAreaLight::getGeometry() const
 
 Material* DiskAreaLight::getMaterial() const
 {
-	Material *m = new Material(std::string("_dal_")+boost::lexical_cast<std::string>(m_id), getColor());
+	Material *m = new Material(std::string("_dal_")+std::to_string(m_id), getColor());
 	m->setEmission(getIntensity());
 	m->setSpecularIntensity(0.0);
 	m->setSpecularGlossiness(0.0);

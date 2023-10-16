@@ -22,12 +22,11 @@
 #define _OBJECT_H_
 
 #include <string>
-#include <boost/shared_ptr.hpp>
 
 #include "Entity.h"
 #include "Geometry.h"
 
-typedef boost::shared_ptr<Geometry> GeoPtr;
+typedef std::shared_ptr<Geometry> GeoPtr;
 
 class Object : public Entity
 {

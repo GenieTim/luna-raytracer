@@ -62,7 +62,7 @@ The source code folder is divided into these additional folders:
 - `app`- Simple application template for rapid prototyping.
 - `core`- The core raytracer with the multi-thread task system is here, along the internal classes needed.
 - `examples`- Usage examples using the `app` application template.
-- `gui`- Progress dispaly window for the `app` application template.
+- `gui`- Progress display window for the `app` application template.
 - `io`- Model loading and image saving helper functions.
 - `math`- Math-related code.
 - `scene`- Scene abstractions such as light sources, cameras, objects, and so on.
@@ -82,7 +82,6 @@ Eager to see the project in action? Open the `prj/gcc` folder in your console an
 #### Dependencies
 
 The project has three library dependencies:
-* Boost - Used for multi-threading and CPU count (`boost_system` and `boost_threads`).
 * libpng - Saving images using a helper fuction (`png12`).
 * SDL - Displaying progress in the sample application (`SDL`).
 

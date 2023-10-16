@@ -18,55 +18,59 @@
 // Core.cpp - Created on 2008.12.18
 //
 
-#include <boost/thread.hpp>
 #include "Core.h"
-#include "RenderTask.h"
-#include "RenderProgressCallback.h"
 #include "BucketOrder.h"
+#include "RenderProgressCallback.h"
+#include "RenderTask.h"
+#include "ThreadPool.h"
+#include <mutex>
+#include <thread>
 
 Core::Core(BucketOrder *order)
-	: m_order(order), m_primaryRaysCount(0), m_secondaryRaysCount(0)
-{
-	// Nothing
+    : m_order(order), m_primaryRaysCount(0), m_secondaryRaysCount(0) {
+  // Nothing
 }
 
-Core::~Core()
-{
-	if (m_order)
-	{
-		delete m_order;
-	}
+Core::~Core() {
+  if (m_order) {
+    delete m_order;
+  }
 }
 
-void Core::render(FrameBuffer* frameBuffer, const Scene* scene, const unsigned int maxDepth,
-				  const unsigned int aaSamples, const unsigned int jobs, RenderProgressCallback* callback)
-{
-	if (callback) callback->onRenderStart();
+void Core::render(FrameBuffer *frameBuffer, const Scene *scene,
+                  const unsigned int maxDepth, const unsigned int aaSamples,
+                  const unsigned int jobs, RenderProgressCallback *callback) {
+  if (callback)
+    callback->onRenderStart();
 
-	unsigned int taskCount = 0;
-	if (jobs == Core::JOBS_AUTO)
-	{
-		taskCount = boost::thread::hardware_concurrency();
-		if (taskCount == 0)
-		{
-			taskCount = 1;
-		}
-	}
-	else
-	{
-		taskCount = jobs;
-	}
+  unsigned int taskCount = 0;
+  if (jobs == Core::JOBS_AUTO) {
+    taskCount = std::thread::hardware_concurrency();
+    if (taskCount == 0) {
+      taskCount = 1;
+    }
+  } else {
+    taskCount = jobs;
+  }
 
-	boost::thread_group tasks;
-	for (unsigned int i=0; i<taskCount; i++)
-	{
-		tasks.add_thread(new boost::thread(
-					RenderTask(m_order, scene, frameBuffer, aaSamples), maxDepth, callback));
-	}
+  ThreadPool tasks;
+  BucketOrder *m_order = this->m_order;
+  for (unsigned int i = 0; i < taskCount; i++) {
+    tasks.QueueJob(
+        [m_order, scene, frameBuffer, aaSamples, maxDepth, callback]() -> void {
+          RenderTask task = RenderTask(m_order, scene, frameBuffer, aaSamples);
+          task(maxDepth, callback);
+        });
+  }
 
-	tasks.join_all();
+  tasks.Start();
+  while (tasks.busy()) {
+    // wait
+  }
+	tasks.Stop();
 
-	if (callback) callback->onRenderEnd();
+  if (callback)
+    callback->onRenderEnd();
 
-	//m_secondaryRaysCount += rt->getSecondaryRaysCount();
+  // m_secondaryRaysCount += rt->getSecondaryRaysCount();
 }

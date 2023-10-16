@@ -26,8 +26,8 @@
 PROFILE_PREFIX=debug
 
 # Flags passed to the compiler
-PROFILE_CCFLAGS=-g -Wall -pedantic-errors -ansi -DPROFILE_DEBUG
-PROFILE_CXXFLAGS=-g -Wall -pedantic-errors -ansi -DPROFILE_DEBUG
+PROFILE_CCFLAGS=-g -Wall -pedantic-errors -ansi -DPROFILE_DEBUG -std=c++11
+PROFILE_CXXFLAGS=-g -Wall -pedantic-errors -ansi -DPROFILE_DEBUG -std=c++11
 
 # Flags passed to the linker
 PROFILE_LDFLAGS=

@@ -26,8 +26,8 @@
 PROFILE_PREFIX=release
 
 # Flags passed to the compiler
-PROFILE_CCFLAGS=-Wall -ansi -pedantic-errors -Wextra -O3 -DPROFILE_RELEASE
-PROFILE_CXXFLAGS=-Wall -ansi -pedantic-errors -Wextra -O3 -DPROFILE_RELEASE
+PROFILE_CCFLAGS=-Wall -ansi -pedantic-errors -Wextra -O3 -DPROFILE_RELEASE -std=c++11
+PROFILE_CXXFLAGS=-Wall -ansi -pedantic-errors -Wextra -O3 -DPROFILE_RELEASE -std=c++11
 
 # Flags passed to the linker
 PROFILE_LDFLAGS=

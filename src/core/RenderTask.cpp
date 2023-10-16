@@ -18,7 +18,8 @@
 // RenderTask.cpp - Created on 2009.01.15
 //
 
-#include <boost/thread.hpp>
+#include<thread> 
+#include<mutex>
 #include "RenderTask.h"
 #include "Raytracer.h"
 #include "RenderProgressCallback.h"
@@ -32,8 +33,8 @@
 
 #define GAMMA(color, gamma) (pow((color),1.0/(gamma)))
 
-boost::mutex mutexCallback;
-boost::mutex mutexBuckets;
+std::mutex mutexCallback;
+std::mutex mutexBuckets;
 
 void RenderTask::operator()(const unsigned int depth, RenderProgressCallback* callback)
 {
