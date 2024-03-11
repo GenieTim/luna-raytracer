@@ -21,7 +21,7 @@
 #ifndef _AABBOX_H_
 #define _AABBOX_H_
 
-#include "Point.h"
+#include "../math/Point.h"
 
 class Ray;
 

@@ -21,8 +21,8 @@
 #ifndef _RAY_H_
 #define _RAY_H_
 
-#include "Vector.h"
-#include "Point.h"
+#include "../math/Vector.h"
+#include "../math/Point.h"
 
 class Ray
 {

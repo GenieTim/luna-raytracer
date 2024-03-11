@@ -21,25 +21,25 @@
 #ifndef _LIGHTHASDIRECTION_H_
 #define _LIGHTHASDIRECTION_H_
 
-#include "Vector.h"
+#include "../math/Vector.h"
 
-class LightHasDirection
-{
+class LightHasDirection {
 public:
-	enum {ATTRIBUTE = 0x2};
+  enum { ATTRIBUTE = 0x2 };
 
-	LightHasDirection(const Vector& direction, const double exponent) : m_direction(direction), m_exponent(exponent) {}
+  LightHasDirection(const Vector &direction, const double exponent)
+      : m_direction(direction), m_exponent(exponent) {}
 
-	//void setDirection(const Vector& direction) {m_direction = direction;}
-	const Vector& getDirection() const {return m_direction;}
-	double getExponent() const {return m_exponent;}
+  // void setDirection(const Vector& direction) {m_direction = direction;}
+  const Vector &getDirection() const { return m_direction; }
+  double getExponent() const { return m_exponent; }
 
 protected:
-	~LightHasDirection() {}
+  ~LightHasDirection() {}
 
 private:
-	Vector m_direction;
-	double m_exponent;
+  Vector m_direction;
+  double m_exponent;
 };
 
 #endif /* _LIGHTHASDIRECTION_H_ */

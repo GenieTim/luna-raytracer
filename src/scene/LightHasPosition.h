@@ -21,7 +21,7 @@
 #ifndef _LIGHTHASPOSITION_H_
 #define _LIGHTHASPOSITION_H_
 
-#include "Point.h"
+#include "../math/Point.h"
 
 class LightHasPosition
 {

@@ -22,7 +22,7 @@
 #define _CAMERA_H_
 
 #include <vector>
-#include "Ray.h"
+#include "../core/Ray.h"
 
 class Camera
 {

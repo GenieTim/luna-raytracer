@@ -21,9 +21,9 @@
 #ifndef _RAYTRACER_
 #define _RAYTRACER_
 
+#include "../math/Point.h"
+#include "../math/Vector.h"
 #include "Color.h"
-#include "Vector.h"
-#include "Point.h"
 
 class FrameBuffer;
 class Scene;
@@ -35,40 +35,48 @@ class Scene;
 class Light;
 class Material;
 
-class Raytracer
-{
+class Raytracer {
 public:
-	Raytracer(const Scene* scene);
-	~Raytracer();
+  Raytracer(const Scene *scene);
+  ~Raytracer();
 
-	Color traceRay(const Ray& ray, const unsigned int recursion,
-					double& distance);
+  Color traceRay(const Ray &ray, const unsigned int recursion,
+                 double &distance);
 
-	unsigned int getSecondaryRaysCount() const {return m_secondaryRaysCount;}
+  unsigned int getSecondaryRaysCount() const { return m_secondaryRaysCount; }
 
 private:
-	const Scene* m_scene;
-	unsigned int m_secondaryRaysCount;
+  const Scene *m_scene;
+  unsigned int m_secondaryRaysCount;
 
-	const Ray buildRay(const double x, const double y) const;
+  const Ray buildRay(const double x, const double y) const;
 
-	Object* searchNearestObj(const Ray& ray, Vector& N, double& nearestT)const;
+  Object *searchNearestObj(const Ray &ray, Vector &N, double &nearestT) const;
 
-	Color computeDirectLightIntensity(const Light* light, const Material* material, const Point& P, const Vector& N,
-									  const Vector& V);
+  Color computeDirectLightIntensity(const Light *light,
+                                    const Material *material, const Point &P,
+                                    const Vector &N, const Vector &V);
 
-	Color computeReflection(const Vector& V, const Point& P, const Vector& N, const unsigned int recursion);
+  Color computeReflection(const Vector &V, const Point &P, const Vector &N,
+                          const unsigned int recursion);
 
-	Color computeGlossyReflection(const Vector& V, const Point& P, const Vector& N,
-								  const double roughness, const unsigned int samples, const unsigned int recursion);
+  Color computeGlossyReflection(const Vector &V, const Point &P,
+                                const Vector &N, const double roughness,
+                                const unsigned int samples,
+                                const unsigned int recursion);
 
-	double computeFresnelReflectance(const Vector& V, const Vector& N, const double ni, const double nt);
+  double computeFresnelReflectance(const Vector &V, const Vector &N,
+                                   const double ni, const double nt);
 
-	Color computeRefraction(const Vector& V, const Point& P, const Vector& N, const double ior1, const double ior2,
-							const unsigned int recursion);
+  Color computeRefraction(const Vector &V, const Point &P, const Vector &N,
+                          const double ior1, const double ior2,
+                          const unsigned int recursion);
 
-	Color computeGlossyRefraction(const Vector& V, const Point& P, const Vector& N, const double ior1, 	const double ior2,
-								  const double roughness, const unsigned int samples, const unsigned int recursion);
+  Color computeGlossyRefraction(const Vector &V, const Point &P,
+                                const Vector &N, const double ior1,
+                                const double ior2, const double roughness,
+                                const unsigned int samples,
+                                const unsigned int recursion);
 };
 
 #endif /* _RAYTRACER_ */

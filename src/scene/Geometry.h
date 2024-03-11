@@ -21,41 +21,40 @@
 #ifndef _GEOMETRY_H_
 #define _GEOMETRY_H_
 
-#include "Vector.h"
-#include "Point.h"
+#include "../math/Point.h"
+#include "../math/Vector.h"
 #include "AABBox.h"
 
 class Ray;
 
-class Geometry
-{
+class Geometry {
 public:
-	AABBox box;	///< Object space bounding box.
+  AABBox box; ///< Object space bounding box.
 
-	Geometry(const AABBox& b) : box(b) {}
-	Geometry(const Geometry& g) {box = g.box;}
-	virtual ~Geometry(){}
+  Geometry(const AABBox &b) : box(b) {}
+  Geometry(const Geometry &g) { box = g.box; }
+  virtual ~Geometry() {}
 
-	Geometry& operator=(const Geometry& g)
-	{
-		box = g.box;
-		return *this;
-	};
+  Geometry &operator=(const Geometry &g) {
+    box = g.box;
+    return *this;
+  };
 
-	/// Computes fast intersection.
-	/// \param ray	Ray to be checked for intersections.
-	/// \param t If an intersection takes place the minor t to solve the
-	///			parametric equation of the ray for the intersection point is
-	///			stored.
-	virtual bool intersects(const Ray& ray, double& t) const = 0;
+  /// Computes fast intersection.
+  /// \param ray	Ray to be checked for intersections.
+  /// \param t If an intersection takes place the minor t to solve the
+  ///			parametric equation of the ray for the intersection
+  ///point is 			stored.
+  virtual bool intersects(const Ray &ray, double &t) const = 0;
 
-	/// \param ray	Ray to be checked for intersections.
-	/// \param N	Surface normal at point of intersection.
-	/// \param t	If an intersection takes place the minor t to solve the
-	///				parametric equation of the ray for the intersection point is
-	///				stored.
-	/// \return	\b true if the ray intersects the object, \b false otherwise.
-	virtual bool checkIntersection(const Ray& ray, Vector& N, double& t) const = 0;
+  /// \param ray	Ray to be checked for intersections.
+  /// \param N	Surface normal at point of intersection.
+  /// \param t	If an intersection takes place the minor t to solve the
+  ///				parametric equation of the ray for the
+  ///intersection point is 				stored.
+  /// \return	\b true if the ray intersects the object, \b false otherwise.
+  virtual bool checkIntersection(const Ray &ray, Vector &N,
+                                 double &t) const = 0;
 };
 
 #endif /* _GEOMETRY_H_ */

@@ -25,7 +25,7 @@
 #include <map>
 #include <string>
 
-#include "Color.h"
+#include "../core/Color.h"
 
 class Object;
 class Light;

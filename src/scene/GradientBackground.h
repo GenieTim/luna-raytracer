@@ -21,21 +21,20 @@
 #ifndef _GRADIENTBACKGROUND_H_
 #define _GRADIENTBACKGROUND_H_
 
+#include "../math/Vector.h"
 #include "Background.h"
-#include "Vector.h"
 
-class GradientBackground : public Background
-{
+class GradientBackground : public Background {
 public:
-	GradientBackground(const Color& pole, const Color& equator)
-		: m_pole(pole), m_equator(equator) {};
+  GradientBackground(const Color &pole, const Color &equator)
+      : m_pole(pole), m_equator(equator){};
 
-	Color getColor(const Ray& ray) const;
+  Color getColor(const Ray &ray) const;
 
 private:
-	static const Vector UP;
-	const Color m_pole;
-	const Color m_equator;
+  static const Vector UP;
+  const Color m_pole;
+  const Color m_equator;
 };
 
 #endif /* _GRADIENTBACKGROUND_H_ */

@@ -21,41 +21,42 @@
 #ifndef _LIGHT_H_
 #define _LIGHT_H_
 
-#include <list>
+#include "../core/Color.h"
+#include "../math/Point.h"
+#include "../math/Vector.h"
 #include "Entity.h"
-#include "Color.h"
-#include "Vector.h"
-#include "Point.h"
+#include <list>
 
 class Object;
 
-class Light : public Entity
-{
+class Light : public Entity {
 public:
-	Light(const Transform& tr, const double intensity, const Color& color)
-		: Entity(tr), m_attributes(0), m_intensity(intensity), m_color(color) {};
-	virtual ~Light() {};
+  Light(const Transform &tr, const double intensity, const Color &color)
+      : Entity(tr), m_attributes(0), m_intensity(intensity), m_color(color){};
+  virtual ~Light(){};
 
-	bool getAttribute(const unsigned int attr) const {return m_attributes&attr;}
-	double getIntensity() const {return m_intensity;}
-	const Color& getColor() const {return m_color;}
+  bool getAttribute(const unsigned int attr) const {
+    return m_attributes & attr;
+  }
+  double getIntensity() const { return m_intensity; }
+  const Color &getColor() const { return m_color; }
 
-	void setIntensity(const double intensity) {m_intensity = intensity;}
-	void setColor(const Color& color) {m_color = color;}
+  void setIntensity(const double intensity) { m_intensity = intensity; }
+  void setColor(const Color &color) { m_color = color; }
 
-	/// All the parameters must be provided in world space
-	virtual void computeIntensity(const Vector& N, const Point& P,
-									const std::list<Object*>& objects,
-									std::list<Color>& I,
-									std::list<Vector>& L) const = 0;
+  /// All the parameters must be provided in world space
+  virtual void computeIntensity(const Vector &N, const Point &P,
+                                const std::list<Object *> &objects,
+                                std::list<Color> &I,
+                                std::list<Vector> &L) const = 0;
 
 protected:
-	void addAttribute(const unsigned int attr) {m_attributes |= attr;}
+  void addAttribute(const unsigned int attr) { m_attributes |= attr; }
 
 private:
-	unsigned int m_attributes;
-	double m_intensity;
-	Color m_color;
+  unsigned int m_attributes;
+  double m_intensity;
+  Color m_color;
 };
 
 #endif /* _LIGHT_H_ */

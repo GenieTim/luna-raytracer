@@ -21,7 +21,7 @@
 #ifndef _BACKGROUND_H_
 #define _BACKGROUND_H_
 
-#include "Color.h"
+#include "../core/Color.h"
 
 class Ray;
 
